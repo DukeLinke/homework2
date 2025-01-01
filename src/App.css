@@ -1,19 +1,161 @@
-/* App容器样式 */
 .App {
   font-family: Arial, sans-serif;
   text-align: center;
   padding: 20px;
-  background-color: #f4f6f9;
+  background: url("背景图片.png") no-repeat center center fixed;
+  color: #fff;
+  min-height: 100vh;
 }
 
-/* Header容器样式 */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+h1 {
+  color: #fff;
+  font-size: 36px;
   margin-bottom: 20px;
-  padding: 10px;
 }
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgba(244, 244, 244, 0.8);
+  width: 60%;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  transition: transform 0.3s, box-shadow 0.3s; /* 增加交互感 */
+  color: #00BCD4;
+  margin: 10px;
+  padding: 20px;
+}
+
+.card:hover {
+  transform: scale(1.009); /* 悬停放大效果 */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* 卡片阴影 */
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+input {
+  width: 80%; /* 输入框的宽度，适配卡片 */
+  padding: 10px 15px; /* 内边距，增加输入体验 */
+  margin: 10px 0; /* 上下间距 */
+  font-size: 16px; /* 字体大小 */
+  border: 2px solid #00bcd4; /* 边框颜色 */
+  border-radius: 8px; /* 圆角效果 */
+  outline: none; /* 去掉聚焦时的默认样式 */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* 添加交互动画 */
+}
+
+input:focus {
+  border-color: #0097a7; /* 聚焦时的边框颜色 */
+  box-shadow: 0 0 8px rgba(0, 151, 167, 0.5); /* 聚焦时的发光效果 */
+}
+
+input::placeholder {
+  color: #aaa; /* 占位符的颜色 */
+  font-style: italic; /* 占位符的字体样式 */
+}
+button {
+  background-color: #00bcd4; /* 主色调 */
+  color: #fff; /* 按钮文字颜色 */
+  border: none; /* 移除默认边框 */
+  padding: 12px 24px; /* 内边距 */
+  font-size: 16px; /* 字体大小 */
+  font-weight: bold; /* 字体加粗 */
+  border-radius: 8px; /* 圆角 */
+  cursor: pointer; /* 鼠标悬停显示为指针 */
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* 添加过渡动画 */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 添加按钮阴影 */
+}
+
+button:hover {
+  background-color: #0097a7; /* 悬停时的背景颜色 */
+  transform: translateY(-2px); /* 悬停时按钮略微上移 */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* 悬停时阴影增强 */
+}
+
+button:active {
+  background-color: #00796b; /* 点击时的背景颜色 */
+  transform: translateY(0); /* 点击时恢复位置 */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 点击时阴影恢复 */
+}
+
+button:disabled {
+  background-color: #ccc; /* 禁用状态的背景颜色 */
+  color: #666; /* 禁用状态的文字颜色 */
+  cursor: not-allowed; /* 禁用状态下鼠标样式 */
+  box-shadow: none; /* 移除阴影 */
+}
+
+.modal-content p,.modal-content h2{
+  color: #00BCD4;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #fff;
+  border-radius: 12px;
+  padding: 30px;
+  text-align: center;
+  width: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.modal-button {
+  background: #00bcd4;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.modal-button:hover {
+  background: #0097a7;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #333;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  color: #ff5722;
+}
+
 
 /* NFT画廊容器样式 */
 .nft-gallery {

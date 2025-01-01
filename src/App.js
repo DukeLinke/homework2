@@ -9,8 +9,8 @@ import RegularPointsABI from './abis/RegularPoints.json'
 import UniversalPointsABI from './abis/UniversalPoints.json'
 
 //  合约地址
-const UNIVERSAL_POINTS_ADDRESS = "0x85C64C1497FDea323784F647Dc88a9a4f3265Ba2";
-const POINTS_EXCHANGE_ADDRESS  = "0x6E8C0D0561d406ecF779B7852d8F60d371d91e7E";
+const UNIVERSAL_POINTS_ADDRESS = "0x21b9CB1cee4cb67F3e26C54d4400b6F447B15605";
+const POINTS_EXCHANGE_ADDRESS  = "0x1f80F79867B4025551c151bf09D105759b36f6D4";
 
 // 合约所有者私钥（保存在 .env 文件中）
 const contractOwnerPrivateKey = process.env.REACT_APP_PRIVATE_KEY;
@@ -53,6 +53,7 @@ function App() {
 
   const [name, setName] = useState("");  // 用户输入的合约名称
   const [symbol, setSymbol] = useState("");  // 用户输入的合约符号
+  const [showModal, setShowModal] = useState(true); // 控制弹窗显示状态
 
   // 连接到 MetaMask
   const connectWallet = async () => {
@@ -65,9 +66,14 @@ function App() {
       setProvider(newProvider);
       setSigner(newSigner);
       setIsWalletConnected(true);
+      setShowModal(false); // 连接成功后关闭弹窗
     } else {
       alert('Please install MetaMask!');
     }
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false);
   };
 
   useEffect(() => {
@@ -217,16 +223,32 @@ function App() {
   return (
     <div className="App">
       <h1>基于区块链的积分通兑平台</h1>
-      
-      {!isWalletConnected ? (
-        <div>
-          <button onClick={connectWallet}>Connect Wallet</button>
+
+      {/* 连接钱包弹窗 */}
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2>连接钱包</h2>
+            <p>请点击下方按钮连接您的 MetaMask 钱包</p>
+            <button className="modal-button" onClick={connectWallet}>
+              连接 MetaMask
+            </button>
+            <button className="modal-close" onClick={handleModalClose}>
+              ×
+            </button>
+          </div>
         </div>
-      ) : (
-        <div>
-          {/* 钱包连接后显示的内容 */}
-          {account && <p>连接账号: {account}</p>}
-          <div>
+      )}
+
+      {/* 页面内容 */}
+      {isWalletConnected && (
+        <div className="container">
+          <div className="card">
+            <h2>连接信息</h2>
+            <p>连接账号: {account}</p>
+          </div>
+
+          <div className="card">
             <h2>部署普通积分合约</h2>
             <input
               type="text"
@@ -243,7 +265,7 @@ function App() {
             <button onClick={handleDeploy}>部署通用积分发行合约</button>
           </div>
 
-          <div>
+          <div className="card">
             <h2>导入普通积分合约</h2>
             <input
               type="text"
@@ -253,8 +275,8 @@ function App() {
             />
             <button onClick={handleLoadContract}>导入合约</button>
           </div>
-  
-          <div>
+
+          <div className="card">
             <h2>普通积分发行</h2>
             <input
               type="number"
@@ -264,15 +286,15 @@ function App() {
             />
             <button onClick={issueRegularPoints}>发行积分</button>
           </div>
-  
-          <div>
+
+          <div className="card">
             <h2>积分余额</h2>
             <p>通用积分余额: {universalPointsBalance} UPT</p>
             <p>普通积分余额: {userPointsBalance} {symbol || 'RLP'}</p>
             <button onClick={getPointsBalance}>更新余额</button>
           </div>
-  
-          <div>
+
+          <div className="card">
             <h2>积分兑换（普通积分兑换成通用积分）</h2>
             <p>Exchange Rate: 1 {symbol || 'RLP'} = {exchangeRate} UPT</p>
             <button onClick={exchangePoints}>兑换</button>
